@@ -4,51 +4,32 @@ namespace CSharp
 {
     class Program
     {
-        static void Divide(int a, int b, out int result1, out int result2)
+        // 함수 이름의 재사용 - 오버로딩
+        static int Add(int a, int b)
         {
-            result1 = a / b;
-            result2 = a % b;
+            return a + b;
         }
-
-        static void Swap(ref int a, ref int b)
+        // static void Add(int a, int b)는 불가능하다.
+        static int Add(int a, int b, int c)
         {
-            int temp = a;
-            a = b;
-            b = temp;
+            return a + b + c;
         }
-        static void AddOne(ref int number)
+        static int Add2(int a, int b, int c = 0)
         {
-            number += 1;
+            return a + b + c;
         }
-        static int AddOne2(int number)
+        static float Add(float a, float b)
         {
-            return number += 1;
+            return a + b;
         }
         static void Main(string[] args)
         {
-            int a = 0;
-            Program.AddOne(ref a);
-            Console.WriteLine(a);
+            int ret = Program.Add(2, 3);
+            int ret2 = Program.Add(2, 3, 5);
+            float ret3 = Program.Add(2.0f, 3.0f);
 
-            // 이게 훨씬 더 좋다.
-            a = Program.AddOne2(a);
-            Console.WriteLine(a);
-
-            int num1 = 1;
-            int num2 = 2;
-
-            Program.Swap(ref num1, ref num2);
-            Console.WriteLine(num1);
-            Console.WriteLine(num2);
-
-            int n1 = 10;
-            int n2 = 3;
-            int result1;
-            int result2;
-            Divide(10, 3, out result1, out result2);
-
-            Console.WriteLine(result1);
-            Console.WriteLine(result2);
+            int ret4 = Program.Add2(2, 3);
+            int ret5 = Program.Add2(2, 3, c:5);
         }
     }
 }
