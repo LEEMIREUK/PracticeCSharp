@@ -4,13 +4,17 @@ namespace CSharp
 {
     class Program
     {
+        enum Choice
+        {
+            Rock = 1,
+            Paper = 2,
+            Scissors = 0
+        }
+
+
         // 주석을 달 수 있다.
         static void Main(string[] args)
         {
-            const int SCISSORS = 0;
-            const int ROCK = 1;
-            const int PAPER = 2;
-
             // 0: 가위 1: 바위 2: 보
 
             Random rand = new Random();
@@ -19,26 +23,26 @@ namespace CSharp
 
             switch (choice)
             {
-                case ROCK:
+                case (int)Choice.Scissors:
                     Console.WriteLine("당신은 가위입니다.");
                     break;
-                case PAPER:
+                case (int)Choice.Rock:
                     Console.WriteLine("당신은 바위입니다.");
                     break;
-                case SCISSORS:
+                case (int)Choice.Paper:
                     Console.WriteLine("당신은 보입니다.");
                     break;
             }
 
             switch (aiChoice)
             {
-                case ROCK:
+                case (int)Choice.Scissors:
                     Console.WriteLine("컴퓨터의 가위입니다.");
                     break;
-                case PAPER:
+                case (int)Choice.Rock:
                     Console.WriteLine("컴퓨터의 바위입니다.");
                     break;
-                case SCISSORS:
+                case (int)Choice.Paper:
                     Console.WriteLine("컴퓨터의 보입니다.");
                     break;
             }
@@ -94,15 +98,15 @@ namespace CSharp
             {
                 Console.WriteLine("무승부입니다.");
             }
-            else if (choice == SCISSORS &&  aiChoice == PAPER)
+            else if (choice == (int)Choice.Scissors &&  aiChoice == (int)Choice.Paper)
             {
                 Console.WriteLine("승리입니다.");
             }
-            else if (choice == ROCK && aiChoice == SCISSORS)
+            else if (choice == (int)Choice.Rock && aiChoice == (int)Choice.Scissors)
             {
                 Console.WriteLine("승리입니다.");
             }
-            else if (choice == PAPER && aiChoice == ROCK)
+            else if (choice == (int)Choice.Paper && aiChoice == (int)Choice.Rock)
             {
                 Console.WriteLine("승리입니다.");
             }
