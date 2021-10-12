@@ -4,36 +4,51 @@ namespace CSharp
 {
     class Program
     {
-        //static 반환형식 이름(매개변수목록)
-        //{
-        //}
-        static void HellowWorld()
+        static void Divide(int a, int b, out int result1, out int result2)
         {
-            Console.WriteLine("Hello World");
+            result1 = a / b;
+            result2 = a % b;
         }
 
-        // 덧셈 함수
-        static int Add(int a, int b)
+        static void Swap(ref int a, ref int b)
         {
-            int result = a + b;
-            return result;
+            int temp = a;
+            a = b;
+            b = temp;
         }
-
         static void AddOne(ref int number)
         {
-            // 주소값을 넘겨 값 변경이 가능하다.
             number += 1;
         }
-
+        static int AddOne2(int number)
+        {
+            return number += 1;
+        }
         static void Main(string[] args)
         {
-            int a = 4;
-            int b = 5;
-            int num = 0;
-            HellowWorld();
-            int result = Add(a, b);
-            // 참조(ref)   복사(ref없는것)
-            Program.AddOne(ref num);
+            int a = 0;
+            Program.AddOne(ref a);
+            Console.WriteLine(a);
+
+            // 이게 훨씬 더 좋다.
+            a = Program.AddOne2(a);
+            Console.WriteLine(a);
+
+            int num1 = 1;
+            int num2 = 2;
+
+            Program.Swap(ref num1, ref num2);
+            Console.WriteLine(num1);
+            Console.WriteLine(num2);
+
+            int n1 = 10;
+            int n2 = 3;
+            int result1;
+            int result2;
+            Divide(10, 3, out result1, out result2);
+
+            Console.WriteLine(result1);
+            Console.WriteLine(result2);
         }
     }
 }
