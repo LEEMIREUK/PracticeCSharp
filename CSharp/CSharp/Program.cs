@@ -7,10 +7,9 @@ namespace CSharp
         // 주석을 달 수 있다.
         static void Main(string[] args)
         {
-            //// 삼항 연산자
-            //int number = 25;
-            ////(조건 ? 참인경우 : 거짓인경우)
-            //bool isPair = ((number % 2) == 0 ? true : false);
+            const int SCISSORS = 0;
+            const int ROCK = 1;
+            const int PAPER = 2;
 
             // 0: 가위 1: 바위 2: 보
 
@@ -20,26 +19,26 @@ namespace CSharp
 
             switch (choice)
             {
-                case 0:
+                case ROCK:
                     Console.WriteLine("당신은 가위입니다.");
                     break;
-                case 1:
+                case PAPER:
                     Console.WriteLine("당신은 바위입니다.");
                     break;
-                case 2:
+                case SCISSORS:
                     Console.WriteLine("당신은 보입니다.");
                     break;
             }
 
             switch (aiChoice)
             {
-                case 0:
+                case ROCK:
                     Console.WriteLine("컴퓨터의 가위입니다.");
                     break;
-                case 1:
+                case PAPER:
                     Console.WriteLine("컴퓨터의 바위입니다.");
                     break;
-                case 2:
+                case SCISSORS:
                     Console.WriteLine("컴퓨터의 보입니다.");
                     break;
             }
@@ -95,15 +94,15 @@ namespace CSharp
             {
                 Console.WriteLine("무승부입니다.");
             }
-            else if (choice == 0 &&  aiChoice == 2)
+            else if (choice == SCISSORS &&  aiChoice == PAPER)
             {
                 Console.WriteLine("승리입니다.");
             }
-            else if (choice == 1 && aiChoice == 0)
+            else if (choice == ROCK && aiChoice == SCISSORS)
             {
                 Console.WriteLine("승리입니다.");
             }
-            else if (choice == 2 && aiChoice == 1)
+            else if (choice == PAPER && aiChoice == ROCK)
             {
                 Console.WriteLine("승리입니다.");
             }
