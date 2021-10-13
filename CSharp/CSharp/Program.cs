@@ -4,32 +4,211 @@ namespace CSharp
 {
     class Program
     {
-        // 함수 이름의 재사용 - 오버로딩
-        static int Add(int a, int b)
+        // 열거형 enum
+        enum ClassType
         {
-            return a + b;
+            None = 0,
+            Knight = 1,
+            Archer = 2,
+            Mage = 3
         }
-        // static void Add(int a, int b)는 불가능하다.
-        static int Add(int a, int b, int c)
+
+        // 구조체 struct
+        struct Player
         {
-            return a + b + c;
+            public int hp;
+            public int attack;
         }
-        static int Add2(int a, int b, int c = 0)
+
+        enum MonsterType
         {
-            return a + b + c;
+            None = 0,
+            Slime = 1,
+            Orc = 2,
+            Skeleton = 3
         }
-        static float Add(float a, float b)
+
+        struct Monster
         {
-            return a + b;
+            public int hp;
+            public int attack;
         }
+
+        // 함수의 반환
+        static ClassType ChooseClass()
+        {
+            Console.WriteLine("직업을 선택하세요!");
+            Console.WriteLine("[1] 기사");
+            Console.WriteLine("[2] 궁수");
+            Console.WriteLine("[3] 법사");
+
+            ClassType choice = ClassType.None;
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    choice = ClassType.Knight;
+                    break;
+                case "2":
+                    choice = ClassType.Archer;
+                    break;
+                case "3":
+                    choice = ClassType.Mage;
+                    break;
+            }
+
+            return choice;
+        }
+
+        // out을 이용한 함수 반환
+        static void CreatePlayer(ClassType choice, out Player player)
+        {
+            switch(choice)
+            {
+                // 기사(100, 10) 궁수(75, 12) 법사(50, 15)
+                case ClassType.Knight:
+                    player.hp = 100;
+                    player.attack = 10;
+                    break;
+                case ClassType.Archer:
+                    player.hp = 75;
+                    player.attack = 12;
+                    break;
+                case ClassType.Mage:
+                    player.hp = 50;
+                    player.attack = 15;
+                    break;
+                default:
+                    player.hp = 0;
+                    player.attack = 0;
+                    break;
+            }
+        }
+
+        static void CreateRandomMonster(out Monster monster)
+        {
+            Random rand = new Random();
+            int randMonster = rand.Next(1, 4);
+            switch(randMonster)
+            {
+                case (int)MonsterType.Slime:
+                    Console.WriteLine("슬라임이 스폰되었습니다!");
+                    monster.hp = 20;
+                    monster.attack = 2;
+                    break;
+                case (int)MonsterType.Orc:
+                    Console.WriteLine("오크가 스폰되었습니다!"); 
+                    monster.hp = 40;
+                    monster.attack = 4; 
+                    break;
+                case (int)MonsterType.Skeleton:
+                    Console.WriteLine("스켈레톤이 스폰되었습니다!"); 
+                    monster.hp = 30;
+                    monster.attack = 3; 
+                    break;
+                default:
+                    monster.hp = 0;
+                    monster.attack = 0;
+                    break;
+            }
+        }
+
+
+        // ref를 이용한 참조
+        static void Fight(ref Player player, ref Monster monster)
+        {
+            while(true)
+            {
+                // 플레이어가 몬스터 공격
+                monster.hp -= player.attack;
+                if(monster.hp <= 0)
+                {
+                    Console.WriteLine("승리했습니다!");
+                    Console.WriteLine($"남은 채력 : {player.hp}");
+                    break;
+                }
+
+                // 몬스터 반격
+                player.hp -= monster.attack;
+                if(player.hp <= 0)
+                {
+                    Console.WriteLine("패배했습니다!");
+                    break;
+                }
+            }
+        }
+
+        // ref를 이용한 참조
+        static void EnterField(ref Player player)
+        {
+            while(true)
+            {
+                Console.WriteLine("필드에 접속했습니다.!");
+
+                Monster monster;
+                CreateRandomMonster(out monster);
+
+                Console.WriteLine("[1] 전투 모드로 돌입");
+                Console.WriteLine("[2] 일정 확률로 도망");
+
+                string input = Console.ReadLine();
+                if(input == "1")
+                {
+                    Fight(ref player, ref monster);
+                }
+                else if (input == "2")
+                {
+                    // 33%
+                    Random rand = new Random();
+                    int randValue = rand.Next(0, 101);
+                    if(randValue <= 33)
+                    {
+                        Console.WriteLine("도망치는데 성공했습니다!");
+                        break;
+                    }
+                    else
+                    {
+                        Fight(ref player, ref monster);
+                    }
+                }
+            }
+
+        }
+
+        // ref를 이용한 참조
+        static void EnterGame(ref Player player)
+        {
+            while(true)
+            {
+                Console.WriteLine("마을에 접속했습니다.!");
+                Console.WriteLine("[1] 필드로 간다.");
+                Console.WriteLine("[2] 로비로 돌아가기");
+
+                string input = Console.ReadLine();
+                if(input == "1")
+                {
+                    EnterField(ref player);
+                }
+                else if (input == "2")
+                {
+                    break;
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
-            int ret = Program.Add(2, 3);
-            int ret2 = Program.Add(2, 3, 5);
-            float ret3 = Program.Add(2.0f, 3.0f);
+            while (true)
+            {
+                ClassType choice = ChooseClass();
+                if (choice == ClassType.None)
+                    continue;
 
-            int ret4 = Program.Add2(2, 3);
-            int ret5 = Program.Add2(2, 3, c:5);
+                // 캐릭터 생성
+                Player player;
+                CreatePlayer(choice, out player);
+                EnterGame(ref player);
+            }
         }
     }
 }
