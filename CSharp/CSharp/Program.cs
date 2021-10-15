@@ -9,25 +9,34 @@ namespace CSharp
     {
         protected int hp;
         protected int attack;
+
+        public virtual void Move()
+        {
+            Console.WriteLine("Player 이동!");
+        }
     }
     class Knight : Player
     {
-
+        public override void Move()
+        {
+            Console.WriteLine("Knight 이동!");
+        }
     }
     class Mage : Player
     {
         public int mp;
+
+        public override void Move()
+        {
+            Console.WriteLine("Mage 이동!");
+        }
     }
 
     class Program
     {
         static void EnterGame(Player player)
         {
-            Mage mage = (player as Mage);
-            if(mage != null)
-            {
-                mage.mp = 10;
-            }
+            player.Move();
         }
 
         static void Main(string[] args)
@@ -35,12 +44,7 @@ namespace CSharp
             Knight knight = new Knight();
             Mage mage = new Mage();
 
-            // Mage 타입 -> Player 타입 변환가능
-            // Player 타입 -> Mage 타입 변환 바로 불가능, 명시를 해줘야함
-            Player magePlayer = mage;
-            Mage mage2 = (Mage)magePlayer;
-
-            EnterGame(knight);
+            EnterGame();
         }
     }
 }
