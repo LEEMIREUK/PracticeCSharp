@@ -3,28 +3,25 @@ using System.Collections.Generic;
 
 namespace CSharp
 {
+    class Monster
+    {
+        public int id;
+        public Monster(int id) { this.id = id; }
+    }
     class Program
     {
         static void Main(string[] args)
         {
-            int[] arr = new int[1000];
-            // 메모리 낭비일 수 있다.
+            Dictionary<int, Monster> dic = new Dictionary<int, Monster>();
 
-            // List <- 동적 배열
-            List<int> list = new List<int>();
-         
-            // 삽입 삭제
-            for (int i = 0; i < 5; ++i)
-                list.Add(i);
+            for(int i = 0;i < 10000; ++i)
+            {
+                dic.Add(i, new Monster(i));
+            }
 
-            list.Remove(999);
-            list.RemoveAt(0);
-
-            for (int i = 0; i < 5; ++i)
-                Console.WriteLine(list[i]);
-            foreach (int num in list)
-                Console.WriteLine(num);
-
+            Monster mon;
+            bool found = dic.TryGetValue(20000, out mon);
+            bool found2 = dic.TryGetValue(7777, out mon);
         }
     }
 }
