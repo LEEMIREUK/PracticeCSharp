@@ -6,11 +6,24 @@ namespace CSharp
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
+            // 배열
+            int[] scores = new int[] { 10, 20, 30, 40, 50 };
 
-            while(true)
+            // 0 1 2 3 4
+            //scores[0] = 10;
+            //scores[1] = 20;
+            //scores[2] = 30;
+            //scores[3] = 40;
+            //scores[4] = 50;
+
+            for (int i = 0; i < scores.Length; ++i)
             {
-                game.Process();
+                Console.WriteLine(scores[i]);
+            }
+
+            foreach(int score in scores)
+            {
+                Console.WriteLine(score);
             }
         }
     }
