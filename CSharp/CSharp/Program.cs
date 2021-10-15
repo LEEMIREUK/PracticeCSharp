@@ -4,83 +4,50 @@ namespace CSharp
 {
     class Program
     {
-        static int GetHightestScore(int[] scores)
+        class Map
         {
-            int max = 0;
-            foreach(int score in scores)
+            int[,] tiles = {
+                { 1, 1, 1, 1, 1 },
+                { 1, 0, 0, 0, 1 },
+                { 1, 0, 0, 0, 1 },
+                { 1, 0, 0, 0, 1 },
+                { 1, 1, 1, 1, 1 }
+            };
+            public void Render()
             {
-                if (max < score)
-                    max = score;
-            }
-            return max;
-        }
-
-        static int GetAverageScore(int[] scores)
-        {
-            if (scores.Length == 0)
-                return 0;
-
-            int sum = 0;
-            foreach (int score in scores)
-                sum += score;
-
-            return sum / scores.Length;
-        }
-
-        static int GetIndexOf(int[] scores, int value)
-        {
-            for(int i = 0; i< scores.Length; ++i)
-            {
-                if (scores[i] == value)
-                    return i;
-            }
-            return -1;
-        }
-
-        static void Sort(int[] scores)
-        {
-            for( int i = 0; i< scores.Length; ++i)
-            {
-                // 제일 작은 숫자가 있는 index찾기
-                int minIndex = i;
-                for (int j = i; j < scores.Length; ++j)
+                ConsoleColor defaultColor = Console.ForegroundColor;
+                for (int x = 0; x < tiles.GetLength(0); ++x)
                 {
-                    if (scores[j] < scores[minIndex])
-                        minIndex = j;
+                    for (int y = 0; y < tiles.GetLength(1); ++y)
+                    {
+                        if (tiles[x, y] == 1)
+                            Console.ForegroundColor = ConsoleColor.Red;
+                        else
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write('\u25cf');
+                    }
+                    Console.WriteLine();
                 }
-
-                int temp = scores[i];
-                scores[i] = scores[minIndex];
-                scores[minIndex] = temp;
+                Console.ForegroundColor = defaultColor;
             }
-            //for (int i = 0; i < scores.Length; ++i)
-            //{
-            //    for (int j = 0; j < scores.Length - 1; ++j)
-            //    {
-            //        if (scores[j] > scores[j + 1])
-            //        {
-            //            int temp = scores[j + 1];
-            //            scores[j] = scores[j + 1];
-            //            scores[j] = temp;
-            //        }
-            //    }
-            //}
         }
-
         static void Main(string[] args)
         {
-            // 배열
-            int[] scores = new int[] { 10, 30, 40, 20, 50 };
-            int highestScore = GetHightestScore(scores);
-            Console.WriteLine(highestScore);
+            //int[,] map = new int[2, 3];
+            // 이미 크기를 고정해놓았다.
+            // 가변 배열은 어떻게 할까?
+            int[][] a = new int[3][];
+            // 2번째것의 크기를 지정해주지 않는 이유는 상황에 맞게 크기를 정해줄수 있다.
+            a[0] = new int[2];
+            a[1] = new int[6];
+            a[2] = new int[3];
 
-            int averageScore = GetAverageScore(scores);
-            Console.WriteLine(averageScore);
+            // [ . . ]
+            // [ . . . . . . ]
+            // [ . . .]
 
-            int index = GetIndexOf(scores, 20);
-            Console.WriteLine(index);
-
-            Sort(scores);
+            Map map = new Map();
+            map.Render();
         }
     }
 }
