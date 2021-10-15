@@ -3,12 +3,9 @@
 namespace CSharp
 {
     // 객체 (OOP Object Oriented Programming)
-    
-    // 속성: hp, attack
-    // 기능: Move, Attack, Die
+    // 객체지향의 3대 속성 (은닉성/상속성/다형성)
 
-    // Ref, 참조
-    class Knight
+    class Player    // 부모 / 기반 클래스
     {
         static public int counter = 1;    // 오로지 1개만 존재
 
@@ -16,29 +13,17 @@ namespace CSharp
         public int hp;
         public int attack;
 
-        static public Knight CreateKnight()
+        public Player()
         {
-            Knight knight = new Knight();
-            knight.hp = 100;
-            knight.attack = 100;
-            return knight;
+            Console.WriteLine("Player 생성자 호출");
         }
-        public Knight()
-        {
-            id = counter;
-            counter++;
 
-            hp = 100;
-            attack = 10;
-            Console.WriteLine("생성자 호출!");
-        }
-        public Knight Clone()
+        public Player(int hp)
         {
-            Knight knight = new Knight();
-            knight.hp = hp;
-            knight.attack = attack;
-            return knight;
+            this.hp = hp;
+            Console.WriteLine("Player hp 생성자 호출");
         }
+        
         public void Move()
         {
             Console.WriteLine("Knight Move");
@@ -48,13 +33,37 @@ namespace CSharp
             Console.WriteLine("Knight Attack");
         }
     }
+    class Mage : Player
+    {
+
+    }
+
+    class Archer : Player
+    {
+
+    }
+
+    class Knight : Player   // 자식 / 파생 클래스
+    {
+        public Knight() : base(100)
+        {
+            base.hp = 100;
+            Console.WriteLine("Knight 생성자 호출");
+        }
+        static public Knight CreateKnight()
+        {
+            Knight knight = new Knight();
+            knight.hp = 100;
+            knight.attack = 100;
+            return knight;
+        }
+    }
 
     class Program
     {
         static void Main(string[] args)
         {
-            Knight knight = Knight.CreateKnight(); // static
-            knight.Move(); // 일반
+            Knight knight = new Knight();
         }
     }
 }
