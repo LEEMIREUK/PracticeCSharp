@@ -5,50 +5,17 @@ namespace CSharp
 {
     class Program
     {
-        abstract class Monster
+        // 객체지향 -> 은닉성
+        class Knight
         {
-            public abstract void Shout();
+            public int Hp { get; set; } = 100;
         }
-        interface IFlyable
-        {
-            void Fly();
-        }
-        class Orc : Monster
-        {
-            public override void Shout()
-            {
-                Console.WriteLine("록타르 오가르!");
-            } 
-        }
-
-        class FlyableOrc : Orc, IFlyable
-        {
-            public void Fly()
-            {
-
-            }
-        }
-
-        class Skeleton : Monster
-        {
-            public override void Shout()
-            {
-                Console.WriteLine("꾸에에엑!");
-            }
-        }
-
-        static void DoFly(IFlyable flyable)
-        {
-
-        }
-
+        
         static void Main(string[] args)
         {
-            IFlyable flyable = new FlyableOrc();
-            FlyableOrc orc = new FlyableOrc();
-            DoFly(flyable);
-            DoFly(orc);
-        }
+            Knight knight = new Knight();
 
+            int hp = knight.Hp;
+        }
     }
 }
