@@ -3,25 +3,39 @@ using System.Collections.Generic;
 
 namespace CSharp
 {
-    class Monster
-    {
-        public int id;
-        public Monster(int id) { this.id = id; }
-    }
     class Program
     {
+        class MyList<T>
+        {
+            T[] arr = new T[10];
+
+            public T GetItem(int i )
+            {
+                return arr[i];
+            }
+        }
+
+        class Monster
+        {
+
+        }
+
+        static void Test<T>(T input)
+        {
+
+        }
+
         static void Main(string[] args)
         {
-            Dictionary<int, Monster> dic = new Dictionary<int, Monster>();
+            MyList<int> myIntList = new MyList<int>();
+            int item = myIntList.GetItem(0);
+            MyList<short> myShortList = new MyList<short>();
+            MyList<float> myFloatList = new MyList<float>();
+            MyList<Monster> myMonsterList = new MyList<Monster>();
 
-            for(int i = 0;i < 10000; ++i)
-            {
-                dic.Add(i, new Monster(i));
-            }
-
-            Monster mon;
-            bool found = dic.TryGetValue(20000, out mon);
-            bool found2 = dic.TryGetValue(7777, out mon);
+            Test<int>(3);
+            Test<float>(3.0f);
         }
+
     }
 }
