@@ -5,36 +5,49 @@ namespace CSharp
 {
     class Program
     {
-        class MyList<T>
+        abstract class Monster
         {
-            T[] arr = new T[10];
-
-            public T GetItem(int i )
+            public abstract void Shout();
+        }
+        interface IFlyable
+        {
+            void Fly();
+        }
+        class Orc : Monster
+        {
+            public override void Shout()
             {
-                return arr[i];
+                Console.WriteLine("록타르 오가르!");
+            } 
+        }
+
+        class FlyableOrc : Orc, IFlyable
+        {
+            public void Fly()
+            {
+
             }
         }
 
-        class Monster
+        class Skeleton : Monster
         {
-
+            public override void Shout()
+            {
+                Console.WriteLine("꾸에에엑!");
+            }
         }
 
-        static void Test<T>(T input)
+        static void DoFly(IFlyable flyable)
         {
 
         }
 
         static void Main(string[] args)
         {
-            MyList<int> myIntList = new MyList<int>();
-            int item = myIntList.GetItem(0);
-            MyList<short> myShortList = new MyList<short>();
-            MyList<float> myFloatList = new MyList<float>();
-            MyList<Monster> myMonsterList = new MyList<Monster>();
-
-            Test<int>(3);
-            Test<float>(3.0f);
+            IFlyable flyable = new FlyableOrc();
+            FlyableOrc orc = new FlyableOrc();
+            DoFly(flyable);
+            DoFly(orc);
         }
 
     }
