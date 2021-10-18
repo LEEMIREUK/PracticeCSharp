@@ -6,48 +6,49 @@ namespace CSharp
 {
     class Program
     {
-        class Important : System.Attribute
+        static int Find()
         {
-            string message;
-
-            public Important(string message) { this.message = message; }
+            return 0;
         }
+
         class Monster
         {
-            // hp입니다. 중요한 정보입니다.
-            [Important("Very Important")]
-            public int hp;
-
-            protected int attack;
-            private float speed;
-
-            void Attack() { }
-
+            public int Id { get; set; }
         }
 
         static void Main(string[] args)
         {
-            // Reflection : X-Ray
-            Monster monster = new Monster();
-            Type type = monster.GetType();
+            //// Nullable -> Null + able
+            //int? number = null;
 
-            var fields = type.GetFields(System.Reflection.BindingFlags.Public
-                | System.Reflection.BindingFlags.NonPublic
-                | System.Reflection.BindingFlags.Static
-                | System.Reflection.BindingFlags.Instance);
+            //int b = number ?? 0;
+            //int c = (number != null) ? number.Value : 0;
 
-            foreach (FieldInfo field in fields)
+            //int a = number.Value;
+
+            //if(number != null)
+            //{
+
+            //}
+            //if(number.HasValue)
+            //{
+
+            //}
+
+            Monster monster = null;
+
+            if(monster != null)
             {
-                string access = "protected";
-                if (field.IsPublic)
-                    access = "public";
-                else if (field.IsPrivate)
-                    access = "private";
-
-                var attribute = field.GetCustomAttributes();
-
-                Console.WriteLine($"{access} {field.FieldType.Name} {field.Name}");
+                int monsterId = monster.Id;
             }
+
+            int? id = monster?.Id;
+
+            if (monster == null)
+                id = null;
+            else
+                id = monster.Id;
+         
         }
     }
 }
